@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="産前産後リハビリアカデミーのセミナーアンケートです。">
+  <title>産前産後リハビリアカデミー アンケート</title>
+  <style>
+    :root {
+      --pink-50: #fff8fa;
+      --pink-100: #fceef2;
+      --pink-200: #f7dce5;
+      --pink-400: #db8da7;
+      --pink-600: #b85f7e;
+      --ink: #3b3035;
+      --muted: #766970;
+      --line: rgba(133, 80, 99, 0.16);
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(104, 58, 75, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(245, 201, 214, 0.68), transparent 32rem),
+        radial-gradient(circle at 100% 30%, rgba(250, 224, 231, 0.7), transparent 28rem),
+        var(--pink-50);
+      line-height: 1.8;
+    }
+
+    body::before,
+    body::after {
+      position: fixed;
+      z-index: -1;
+      width: 18rem;
+      height: 18rem;
+      border: 1px solid rgba(218, 142, 166, 0.22);
+      border-radius: 50%;
+      content: "";
+    }
+
+    body::before {
+      top: -8rem;
+      right: -5rem;
+    }
+
+    body::after {
+      bottom: -10rem;
+      left: -7rem;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, 820px);
+      margin: 0 auto;
+      padding: 56px 0 80px;
+    }
+
+    .hero {
+      margin-bottom: 22px;
+      padding: 42px clamp(24px, 6vw, 56px);
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(252, 238, 242, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      position: absolute;
+      top: -72px;
+      right: -56px;
+      width: 190px;
+      height: 190px;
+      border: 42px solid rgba(222, 145, 170, 0.1);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 12px;
+      color: var(--pink-600);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .eyebrow::before {
+      width: 26px;
+      height: 1px;
+      background: var(--pink-400);
+      content: "";
+    }
+
+    h1 {
+      max-width: 620px;
+      margin: 0;
+      font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+      font-size: clamp(1.7rem, 5.2vw, 2.65rem);
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: 0.04em;
+    }
+
+    .intro {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .intro p {
+      margin: 0 0 13px;
+    }
+
+    .intro p:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-card {
+      margin-bottom: 16px;
+      padding: clamp(24px, 5vw, 40px);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.96);
+      border-radius: 24px;
+      box-shadow: 0 10px 34px rgba(103, 58, 75, 0.07);
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    legend,
+    .question-title {
+      display: block;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 0;
+      color: var(--ink);
+      font-size: 1.06rem;
+      font-weight: 700;
+      line-height: 1.65;
+    }
+
+    .question-number {
+      display: inline-grid;
+      width: 29px;
+      height: 29px;
+      margin-right: 9px;
+      place-items: center;
+      color: var(--pink-600);
+      font-size: 0.77rem;
+      background: var(--pink-100);
+      border-radius: 50%;
+      vertical-align: 1px;
+    }
+
+    .required {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 2px 8px;
+      color: var(--pink-600);
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.5;
+      background: var(--pink-100);
+      border-radius: 999px;
+      vertical-align: 2px;
+    }
+
+    .hint {
+      margin: -10px 0 17px 39px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 15px;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+
+    .choice:hover {
+      background: var(--pink-50);
+      border-color: rgba(184, 95, 126, 0.36);
+      transform: translateY(-1px);
+    }
+
+    .choice:has(input:checked) {
+      background: var(--pink-100);
+      border-color: rgba(184, 95, 126, 0.5);
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 4px 0 0;
+      flex: 0 0 auto;
+      accent-color: var(--pink-600);
+    }
+
+    textarea,
+    .other-input {
+      width: 100%;
+      color: var(--ink);
+      font: inherit;
+      background: var(--pink-50);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    textarea {
+      min-height: 125px;
+      padding: 15px 16px;
+      resize: vertical;
+    }
+
+    .other-input {
+      display: none;
+      margin-top: 11px;
+      padding: 11px 14px;
+    }
+
+    .other-input.is-visible {
+      display: block;
+    }
+
+    textarea:focus,
+    .other-input:focus {
+      background: var(--white);
+      border-color: var(--pink-400);
+      box-shadow: 0 0 0 4px rgba(219, 141, 167, 0.13);
+    }
+
+    textarea::placeholder,
+    .other-input::placeholder {
+      color: #aa9ca2;
+    }
+
+    .submit-area {
+      padding: 16px 4px 0;
+      text-align: center;
+    }
+
+    .submit-button {
+      display: inline-flex;
+      min-width: min(100%, 310px);
+      min-height: 58px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 32px;
+      color: var(--white);
+      font: inherit;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      background: linear-gradient(135deg, #c9708f, #aa506f);
+      border: 0;
+      border-radius: 999px;
+      box-shadow: 0 12px 28px rgba(173, 78, 111, 0.25);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(173, 78, 111, 0.3);
+    }
+
+    .submit-button:focus-visible {
+      outline: 3px solid rgba(184, 95, 126, 0.28);
+      outline-offset: 4px;
+    }
+
+    .submit-button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+      transform: none;
+    }
+
+    .arrow {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .privacy-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .status {
+      display: none;
+      margin: 17px auto 0;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .status.is-error {
+      display: block;
+      color: #8c3451;
+      background: #fff0f4;
+      border: 1px solid #efc0cf;
+    }
+
+    .success-panel {
+      display: none;
+      padding: 64px 30px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .success-panel.is-visible {
+      display: block;
+      animation: appear 0.45s ease both;
+    }
+
+    .success-mark {
+      display: grid;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 22px;
+      place-items: center;
+      color: var(--white);
+      font-size: 2rem;
+      background: linear-gradient(135deg, #d88ba5, #ad5573);
+      border-radius: 50%;
+      box-shadow: 0 12px 25px rgba(173, 78, 111, 0.22);
+    }
+
+    .success-panel h2 {
+      margin: 0 0 10px;
+      font-family: "Yu Mincho", "YuMincho", serif;
+      font-size: 1.65rem;
+      font-weight: 600;
+    }
+
+    .success-panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .page-shell {
+        width: min(100% - 22px, 820px);
+        padding: 22px 0 50px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .intro {
+        font-size: 0.9rem;
+      }
+
+      .form-card {
+        padding: 23px 18px;
+        border-radius: 19px;
+      }
+
+      .choice {
+        padding: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section id="surveyContent">
+      <header class="hero">
+        <p class="eyebrow">ACADEMY SURVEY</p>
+        <h1>産前産後リハビリアカデミー<br>アンケート</h1>
+        <div class="intro">
+          <p>皆さん、本日は2日間連続のアカデミーセミナー、お疲れ様でした。</p>
+          <p>少し簡単なアンケートを取りたいので、お手数ですがご協力をお願いいたします。</p>
+          <p>また、本日勉強したことに関しては、繰り返し行うことが大事です。患者さんだけではなく、同僚であったり家族であったり、できるだけ特に問題のない方をしっかり触らせてもらった上で、その正常な状態をしっかりと覚えて患者さんに適応していくと役に立つと思います。</p>
+          <p>それでは、アンケートへのご回答をよろしくお願いいたします。</p>
+        </div>
+      </header>
+
+      <form id="surveyForm">
+        <section class="form-card">
+          <label class="question-title" for="schedule">
+            <span class="question-number">01</span>本日の日程はどうでしたか？<span class="required">必須</span>
+          </label>
+          <textarea id="schedule" name="schedule" required placeholder="ご感想やご希望をご記入ください"></textarea>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">02</span>開始時間、終了時間はどうでしたか？<span class="required">必須</span></legend>
+            <p class="hint">当てはまるものをすべて選択してください</p>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="time" value="初日の朝はもう少しゆっくり開始がよい"><span>初日の朝はもう少しゆっくり開始がよい</span></label>
+              <label class="choice"><input type="checkbox" name="time" value="初日の終わりはもう少し後でもいい"><span>初日の終わりはもう少し後でもいい</span></label>
+              <label class="choice"><input type="checkbox" name="time" value="最後の日の終わりはもう少し早めがよい"><span>最後の日の終わりはもう少し早めがよい</span></label>
+              <label class="choice"><input type="checkbox" name="time" value="その他" data-other="timeOther"><span>その他</span></label>
+            </div>
+            <input class="other-input" id="timeOther" type="text" placeholder="その他のご意見をご記入ください">
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">03</span>今回の勉強の範囲で内容はどうでしたか？<span class="required">必須</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="difficulty" value="わかりやすかった" required><span>わかりやすかった</span></label>
+              <label class="choice"><input type="radio" name="difficulty" value="普通だった"><span>普通だった</span></label>
+              <label class="choice"><input type="radio" name="difficulty" value="難しい部分があった"><span>難しい部分があった</span></label>
+              <label class="choice"><input type="radio" name="difficulty" value="かなり難解であった"><span>かなり難解であった</span></label>
+              <label class="choice"><input type="radio" name="difficulty" value="その他" data-other="difficultyOther"><span>その他</span></label>
+            </div>
+            <input class="other-input" id="difficultyOther" type="text" placeholder="その他のご感想をご記入ください">
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">04</span>今回の授業の量はどうでしたか？<span class="required">必須</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="volume" value="多かった" required><span>多かった</span></label>
+              <label class="choice"><input type="radio" name="volume" value="適切だった"><span>適切だった</span></label>
+              <label class="choice"><input type="radio" name="volume" value="まだまだ余裕"><span>まだまだ余裕</span></label>
+              <label class="choice"><input type="radio" name="volume" value="その他" data-other="volumeOther"><span>その他</span></label>
+            </div>
+            <input class="other-input" id="volumeOther" type="text" placeholder="その他のご感想をご記入ください">
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">05</span>総合的な満足度を教えてください<span class="required">必須</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="satisfaction" value="とても満足" required><span>とても満足</span></label>
+              <label class="choice"><input type="radio" name="satisfaction" value="満足"><span>満足</span></label>
+              <label class="choice"><input type="radio" name="satisfaction" value="普通"><span>普通</span></label>
+              <label class="choice"><input type="radio" name="satisfaction" value="やや不満"><span>やや不満</span></label>
+              <label class="choice"><input type="radio" name="satisfaction" value="不満"><span>不満</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">06</span>今回の内容を、明日からの臨床で活用できそうですか？<span class="required">必須</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="practicality" value="すぐ活用できそう" required><span>すぐ活用できそう</span></label>
+              <label class="choice"><input type="radio" name="practicality" value="一部活用できそう"><span>一部活用できそう</span></label>
+              <label class="choice"><input type="radio" name="practicality" value="復習すれば活用できそう"><span>復習すれば活用できそう</span></label>
+              <label class="choice"><input type="radio" name="practicality" value="まだ難しい"><span>まだ難しい</span></label>
+            </div>
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <label class="question-title" for="memorable">
+            <span class="question-number">07</span>セミナーの中で、特に印象に残った内容や役に立った内容を教えてください<span class="required">必須</span>
+          </label>
+          <textarea id="memorable" name="memorable" required placeholder="印象に残った内容や、臨床に役立ちそうな内容をご記入ください"></textarea>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">08</span>今回何でアカデミーを知りましたか？<span class="required">必須</span></legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="source" value="LINEグループ" required><span>LINEグループ</span></label>
+              <label class="choice"><input type="radio" name="source" value="インスタ"><span>インスタ</span></label>
+              <label class="choice"><input type="radio" name="source" value="知り合いの紹介"><span>知り合いの紹介</span></label>
+              <label class="choice"><input type="radio" name="source" value="Peatix"><span>Peatix</span></label>
+              <label class="choice"><input type="radio" name="source" value="その他" data-other="sourceOther"><span>その他</span></label>
+            </div>
+            <input class="other-input" id="sourceOther" type="text" placeholder="どこで知ったかをご記入ください">
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <fieldset>
+            <legend><span class="question-number">09</span>今後どんな内容を学びたいですか？<span class="required">必須</span></legend>
+            <p class="hint">当てはまるものをすべて選択してください</p>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="future" value="スポットで何かに特化した内容" data-other="specializedOther"><span>スポットで何かに特化した内容</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="他職種連携のコツなどの環境改善の話"><span>他職種連携のコツなどの環境改善の話</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="勉強の仕方について"><span>勉強の仕方について</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="産前産後に特化したエコーセミナー"><span>産前産後に特化したエコーセミナー</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="産婦人科に特化したセラピスト向けの授業"><span>産婦人科に特化したセラピスト向けの授業</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="整形外科に特化したセラピスト向けの授業"><span>整形外科に特化したセラピスト向けの授業</span></label>
+              <label class="choice"><input type="checkbox" name="future" value="その他" data-other="futureOther"><span>その他</span></label>
+            </div>
+            <input class="other-input" id="specializedOther" type="text" placeholder="特化して学びたい内容をご記入ください">
+            <input class="other-input" id="futureOther" type="text" placeholder="その他に学びたい内容をご記入ください">
+          </fieldset>
+        </section>
+
+        <section class="form-card">
+          <label class="question-title" for="comments">
+            <span class="question-number">10</span>その他何かあればご記入ください
+          </label>
+          <textarea id="comments" name="comments" placeholder="ご意見・ご感想など、ご自由にご記入ください（任意）"></textarea>
+        </section>
+
+        <div class="submit-area">
+          <button class="submit-button" id="submitButton" type="submit">
+            <span>アンケートを送信</span><span class="arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="privacy-note">送信内容はセミナー運営の改善に使用します。</p>
+          <p class="status" id="statusMessage" role="alert"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="success-panel" id="successPanel" aria-live="polite">
+      <div class="success-mark" aria-hidden="true">✓</div>
+      <h2>ご回答ありがとうございました</h2>
+      <p>アンケートの送信が完了しました。<br>今後のアカデミー運営に活用させていただきます。</p>
+    </section>
+  </main>
+
+  <script>
+    /*
+     * ▼ Google Chat の Webhook URL を、下のダブルクォーテーション内に貼り付けてください。
+     * 例: const GOOGLE_CHAT_WEBHOOK_URL = "https://chat.googleapis.com/v1/spaces/...";
+     */
+    const GOOGLE_CHAT_WEBHOOK_URL = "ここにGoogle ChatのWebhook URLを貼り付けてください";
+
+    const form = document.getElementById("surveyForm");
+    const submitButton = document.getElementById("submitButton");
+    const statusMessage = document.getElementById("statusMessage");
+
+    function updateOtherInput(input) {
+      if (!input.dataset.other) return;
+      const otherInput = document.getElementById(input.dataset.other);
+      const shouldShow = input.type === "checkbox" ? input.checked : true;
+
+      if (input.type === "radio") {
+        document.querySelectorAll(`input[type="radio"][name="${input.name}"][data-other]`).forEach((radio) => {
+          const linkedInput = document.getElementById(radio.dataset.other);
+          const visible = radio.checked;
+          linkedInput.classList.toggle("is-visible", visible);
+          linkedInput.required = visible;
+          if (!visible) linkedInput.value = "";
+        });
+      } else {
+        otherInput.classList.toggle("is-visible", shouldShow);
+        otherInput.required = shouldShow;
+        if (!shouldShow) otherInput.value = "";
+      }
+    }
+
+    document.querySelectorAll("input[type='radio'], input[type='checkbox']").forEach((input) => {
+      input.addEventListener("change", () => {
+        if (input.type === "radio") {
+          document.querySelectorAll(`input[type="radio"][name="${input.name}"]`).forEach(updateOtherInput);
+        } else {
+          updateOtherInput(input);
+        }
+      });
+    });
+
+    function selectedValues(name) {
+      return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => {
+        const otherInput = input.dataset.other ? document.getElementById(input.dataset.other) : null;
+        return otherInput && otherInput.value.trim()
+          ? `${input.value}（${otherInput.value.trim()}）`
+          : input.value;
+      });
+    }
+
+    function validateCheckboxGroup(name, message) {
+      const checked = document.querySelectorAll(`input[name="${name}"]:checked`);
+      if (checked.length > 0) return true;
+
+      const first = document.querySelector(`input[name="${name}"]`);
+      first.focus();
+      showError(message);
+      return false;
+    }
+
+    function showError(message) {
+      statusMessage.textContent = message;
+      statusMessage.className = "status is-error";
+    }
+
+    function buildChatMessage() {
+      const difficulty = selectedValues("difficulty")[0];
+      const volume = selectedValues("volume")[0];
+      const satisfaction = selectedValues("satisfaction")[0];
+      const practicality = selectedValues("practicality")[0];
+      const source = selectedValues("source")[0];
+      const comments = document.getElementById("comments").value.trim() || "記入なし";
+      const sentAt = new Intl.DateTimeFormat("ja-JP", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(new Date());
+
+      return [
+        "🌸 *産前産後リハビリアカデミー アンケート回答*",
+        "",
+        `*1. 本日の日程はどうでしたか？*`,
+        document.getElementById("schedule").value.trim(),
+        "",
+        `*2. 開始時間、終了時間はどうでしたか？*`,
+        selectedValues("time").map((value) => `・${value}`).join("\n"),
+        "",
+        `*3. 今回の勉強の範囲で内容はどうでしたか？*`,
+        difficulty,
+        "",
+        `*4. 今回の授業の量はどうでしたか？*`,
+        volume,
+        "",
+        `*5. 総合的な満足度を教えてください*`,
+        satisfaction,
+        "",
+        `*6. 今回の内容を、明日からの臨床で活用できそうですか？*`,
+        practicality,
+        "",
+        `*7. 特に印象に残った内容や役に立った内容*`,
+        document.getElementById("memorable").value.trim(),
+        "",
+        `*8. 今回何でアカデミーを知りましたか？*`,
+        source,
+        "",
+        `*9. 今後どんな内容を学びたいですか？*`,
+        selectedValues("future").map((value) => `・${value}`).join("\n"),
+        "",
+        `*10. その他*`,
+        comments,
+        "",
+        `送信日時：${sentAt}`
+      ].join("\n");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusMessage.className = "status";
+      statusMessage.textContent = "";
+
+      if (!form.reportValidity()) return;
+      if (!validateCheckboxGroup("time", "開始・終了時間について、1つ以上選択してください。")) return;
+      if (!validateCheckboxGroup("future", "今後学びたい内容を、1つ以上選択してください。")) return;
+
+      if (!GOOGLE_CHAT_WEBHOOK_URL.startsWith("https://chat.googleapis.com/")) {
+        showError("Google ChatのWebhook URLがまだ設定されていません。HTML内の指定箇所にURLを貼り付けてください。");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.querySelector("span").textContent = "送信しています…";
+
+      try {
+        const response = await fetch(GOOGLE_CHAT_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=UTF-8" },
+          body: JSON.stringify({ text: buildChatMessage() })
+        });
+
+        if (!response.ok) {
+          throw new Error(`送信エラー（${response.status}）`);
+        }
+
+        document.getElementById("surveyContent").hidden = true;
+        document.getElementById("successPanel").classList.add("is-visible");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (error) {
+        console.error(error);
+        showError("送信できませんでした。通信環境またはWebhookの設定をご確認のうえ、もう一度お試しください。");
+        submitButton.disabled = false;
+        submitButton.querySelector("span").textContent = "アンケートを送信";
+      }
+    });
+  </script>
+</body>
+</html>
