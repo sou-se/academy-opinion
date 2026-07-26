@@ -429,9 +429,9 @@
       <form id="surveyForm">
         <section class="form-card">
           <label class="question-title" for="schedule">
-            <span class="question-number">01</span>本日の日程はどうでしたか？<span class="required">必須</span>
+            <span class="question-number">01</span>本日の日程はどうでしたか？
           </label>
-          <textarea id="schedule" name="schedule" required placeholder="ご感想やご希望をご記入ください"></textarea>
+          <textarea id="schedule" name="schedule" placeholder="ご感想やご希望をご記入ください（任意）"></textarea>
         </section>
 
         <section class="form-card">
@@ -502,9 +502,9 @@
 
         <section class="form-card">
           <label class="question-title" for="memorable">
-            <span class="question-number">07</span>セミナーの中で、特に印象に残った内容や役に立った内容を教えてください<span class="required">必須</span>
+            <span class="question-number">07</span>セミナーの中で、特に印象に残った内容や役に立った内容を教えてください
           </label>
-          <textarea id="memorable" name="memorable" required placeholder="印象に残った内容や、臨床に役立ちそうな内容をご記入ください"></textarea>
+          <textarea id="memorable" name="memorable" placeholder="印象に残った内容や、臨床に役立ちそうな内容をご記入ください（任意）"></textarea>
         </section>
 
         <section class="form-card">
@@ -568,7 +568,7 @@
      * ▼ Google Chat の Webhook URL を、下のダブルクォーテーション内に貼り付けてください。
      * 例: const GOOGLE_CHAT_WEBHOOK_URL = "https://chat.googleapis.com/v1/spaces/...";
      */
-    const GOOGLE_CHAT_WEBHOOK_URL = "https://chat.googleapis.com/v1/spaces/AAQAXA9Cijk/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=cDT28AMfZnsVFv7svCJSRfUk98dTCnN_Dj1xD3ZBfaM";
+    const GOOGLE_CHAT_WEBHOOK_URL = "ここにGoogle ChatのWebhook URLを貼り付けてください";
 
     const form = document.getElementById("surveyForm");
     const submitButton = document.getElementById("submitButton");
@@ -584,12 +584,12 @@
           const linkedInput = document.getElementById(radio.dataset.other);
           const visible = radio.checked;
           linkedInput.classList.toggle("is-visible", visible);
-          linkedInput.required = visible;
+          linkedInput.required = false;
           if (!visible) linkedInput.value = "";
         });
       } else {
         otherInput.classList.toggle("is-visible", shouldShow);
-        otherInput.required = shouldShow;
+        otherInput.required = false;
         if (!shouldShow) otherInput.value = "";
       }
     }
@@ -635,6 +635,8 @@
       const practicality = selectedValues("practicality")[0];
       const source = selectedValues("source")[0];
       const comments = document.getElementById("comments").value.trim() || "記入なし";
+      const schedule = document.getElementById("schedule").value.trim() || "記入なし";
+      const memorable = document.getElementById("memorable").value.trim() || "記入なし";
       const sentAt = new Intl.DateTimeFormat("ja-JP", {
         dateStyle: "medium",
         timeStyle: "short"
@@ -644,7 +646,7 @@
         "🌸 *産前産後リハビリアカデミー アンケート回答*",
         "",
         `*1. 本日の日程はどうでしたか？*`,
-        document.getElementById("schedule").value.trim(),
+        schedule,
         "",
         `*2. 開始時間、終了時間はどうでしたか？*`,
         selectedValues("time").map((value) => `・${value}`).join("\n"),
@@ -662,7 +664,7 @@
         practicality,
         "",
         `*7. 特に印象に残った内容や役に立った内容*`,
-        document.getElementById("memorable").value.trim(),
+        memorable,
         "",
         `*8. 今回何でアカデミーを知りましたか？*`,
         source,
